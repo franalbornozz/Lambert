@@ -1,0 +1,46 @@
+<div class="page-container container">
+
+  <div class="form-wrapper">
+
+    <!-- Stepper visual -->
+    <div class="stepper">
+      <div [class.active]="paso === 1">Camión</div>
+      <div [class.active]="paso === 2">Configuración</div>
+      <div [class.active]="paso === 3">Resultados</div>
+      <div [class.active]="paso === 4">Cliente</div>
+    </div>
+
+    <!-- Renderizado de pasos -->
+    <app-paso1-camion
+      *ngIf="paso === 1"
+      (siguiente)="irAlPaso(2)"
+      (camionSeleccionado)="recibirCamion($event)">
+    </app-paso1-camion>
+
+    <app-paso2-configuracion
+      *ngIf="paso === 2"
+      [datosGuardados]="datosConfiguracion"
+      [modoLectura]="modoLectura"
+      (configuracionGuardada)="recibirConfiguracion($event)"
+      (siguiente)="irAlPaso(3)"
+      (anterior)="irAlPaso(1)">
+    </app-paso2-configuracion>
+
+    <app-paso3-resultados
+      *ngIf="paso === 3"
+      [datosProyecto]="armarDatosProyecto()"
+      (modificar)="volverAModificar()"
+      (guardar)="guardarProyecto($event)"
+      (siguiente)="irAlPaso(4)">
+    </app-paso3-resultados>
+
+    <app-paso4-cliente
+      *ngIf="paso === 4 && datosProyecto"
+      [datosProyecto]="datosProyecto"
+      [resultados]="resultadosSimulacion"
+      [esModificado]="esModificado">
+    </app-paso4-cliente>
+
+  </div>
+
+</div>

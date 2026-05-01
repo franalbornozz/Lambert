@@ -1,0 +1,221 @@
+<div class="page-container container">
+
+  <div class="form-wrapper">
+
+    <!-- TÍTULO DINÁMICO -->
+    <h1 class="page-title">
+      {{ modo === 'busqueda' ? 'Selección de camión' : 'Carga manual de camión' }}
+    </h1>
+
+    <!-- Mensajes de estado -->
+    <div *ngIf="cargando" class="feedback-message feedback-info">
+      Cargando lista de camiones...
+    </div>
+    <div *ngIf="error" class="feedback-message feedback-error">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!cargando && !error">
+
+      <!-- ===================== -->
+      <!-- MODO BÚSQUEDA -->
+      <!-- ===================== -->
+      <div *ngIf="modo === 'busqueda'">
+
+        <div class="form-group mb-3">
+          <label class="form-label">Marca:</label>
+          <select class="form-select"
+                  [(ngModel)]="marcaSeleccionada"
+                  (change)="filtrarModelos()">
+            <option value="">Seleccione...</option>
+            <option *ngFor="let c of camiones | unique:'marca_camion'"
+                    [value]="c.marca_camion">
+              {{ c.marca_camion }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Modelo:</label>
+          <select class="form-select"
+                  [(ngModel)]="modeloSeleccionado"
+                  (change)="filtrarTipos()"
+                  [disabled]="!marcaSeleccionada">
+            <option value="">Seleccione...</option>
+            <option *ngFor="let m of modelosDisponibles" [value]="m">
+              {{ m }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Tipo:</label>
+          <select class="form-select"
+                  [(ngModel)]="tipoSeleccionado"
+                  (change)="filtrarAnos()"
+                  [disabled]="!modeloSeleccionado">
+            <option value="">Seleccione...</option>
+            <option *ngFor="let t of tiposDisponibles" [value]="t">
+              {{ t }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Año:</label>
+          <select class="form-select"
+                  [(ngModel)]="anoSeleccionado"
+                  [disabled]="!tipoSeleccionado">
+            <option value="">Seleccione...</option>
+            <option *ngFor="let a of anosDisponibles" [value]="a">
+              {{ a }}
+            </option>
+          </select>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="form-actions">
+          <button class="btn btn-primary"
+                  (click)="buscarCamion()"
+                  [disabled]="!marcaSeleccionada || !modeloSeleccionado ||
+                              !tipoSeleccionado || !anoSeleccionado">
+            Buscar
+          </button>
+
+          <button class="btn btn-secondary"
+                  type="button"
+                  (click)="activarCargaManual()">
+            Cargar manualmente
+          </button>
+        </div>
+
+        <!-- RESULTADO -->
+        <div *ngIf="camionEncontrado" class="resultado mt-4">
+          <p>
+            Camión encontrado:
+            <strong>
+              {{ camionEncontrado.marca_camion }}
+              {{ camionEncontrado.modelo_camion }}
+              ({{ camionEncontrado.ano_camion }})
+              – {{ camionEncontrado.tipo_camion }}
+            </strong>
+          </p>
+
+          <p>¿Desea usar la versión original o una modificada?</p>
+
+          <div class="form-check">
+            <input class="form-check-input"
+                   type="radio"
+                   value="original"
+                   [(ngModel)]="opcion">
+            <label class="form-check-label">Original</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input"
+                   type="radio"
+                   value="modificado"
+                   [(ngModel)]="opcion">
+            <label class="form-check-label">Modificado</label>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary"
+                    [disabled]="!opcion"
+                    (click)="continuar()">
+              Continuar
+            </button>
+          </div>
+        </div>
+
+        <!-- NO ENCONTRADO -->
+        <div *ngIf="busquedaHecha && !camionEncontrado"
+             class="feedback-message feedback-warning mt-3">
+          No se encontró ese camión.
+        </div>
+
+      </div>
+
+      <!-- ===================== -->
+      <!-- MODO MANUAL -->
+      <!-- ===================== -->
+      <div *ngIf="modo === 'manual'" class="mt-4">
+
+        <button class="btn btn-link mb-3"
+                type="button"
+                (click)="activarBusqueda()">
+          ← Volver a búsqueda
+        </button>
+
+        <div class="mb-3">
+          <label class="form-label">Marca:</label>
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="camionManual.marca_camion"
+                 placeholder="Ej: Scania">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Modelo:</label>
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="camionManual.modelo_camion"
+                 placeholder="Ej: P410">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Tipo:</label>
+          <select class="form-select"
+                  [(ngModel)]="camionManual.tipo_camion">
+            <option value="">Seleccionar...</option>
+            <option value="4x2">4x2</option>
+            <option value="6x2">6x2</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Año:</label>
+          <input type="number"
+                 class="form-control"
+                 [(ngModel)]="camionManual.ano_camion"
+                 placeholder="Ej: 2020"
+                 min="1900"
+                 [max]="anoActual">
+        </div>
+
+        <p>¿Desea usar la versión original o una modificada?</p>
+
+        <div class="form-check">
+          <input class="form-check-input"
+                 type="radio"
+                 value="original"
+                 [(ngModel)]="opcion">
+          <label class="form-check-label">Original</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input"
+                 type="radio"
+                 value="modificado"
+                 [(ngModel)]="opcion">
+          <label class="form-check-label">Modificado</label>
+        </div>
+
+        <div *ngIf="intentoContinuarManual && errorValidacion"
+             class="feedback-message feedback-warning mt-3">
+          {{ errorValidacion }}
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary"
+                  [disabled]="!opcion"
+                  (click)="continuarManual()">
+            Continuar
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="page-container container">
+  <div class="form-wrapper">
+    <h1 class="page-title">Asignar cliente</h1>
+
+    <div *ngIf="cargando" class="feedback-message feedback-info">
+      Cargando clientes...
+    </div>
+    <div *ngIf="error" class="feedback-message feedback-error">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!cargando && !error">
+      <div class="form-group mb-3">
+        <label class="form-label">Seleccione cliente:</label>
+        <select class="form-select" [(ngModel)]="clienteSeleccionado">
+          <option [ngValue]="null">Seleccione...</option>
+          <option *ngFor="let c of clientes" [ngValue]="c">
+            {{ c.razon_social }} ({{ c.cuit }})
+          </option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" 
+                [disabled]="!clienteSeleccionado" 
+                (click)="guardarPedido()">
+          Guardar pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

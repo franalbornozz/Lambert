@@ -1,0 +1,20 @@
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  div {
+    flex: 1;
+    text-align: center;
+    padding: 0.75rem;
+    border-bottom: 3px solid #e6e6e6;
+    font-weight: 500;
+    color: #333333; // $dark-secondary
+    transition: all 0.3s ease;
+
+    &.active {
+      border-color: #159947; // $primary-green
+      color: #159947;
+    }
+  }
+}

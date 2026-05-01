@@ -1,0 +1,58 @@
+<div class="page-container container">
+
+  <div class="form-wrapper">
+
+    <h1 class="page-title text-center">Nuevo Cliente</h1>
+
+    <form (ngSubmit)="guardarCliente()" #form="ngForm">
+
+      <div class="form-group">
+        <label for="cuit" class="form-label">CUIT</label>
+        <input
+          id="cuit"
+          type="number"
+          [(ngModel)]="cliente.cuit"
+          name="cuit"
+          required
+          class="form-control" />
+        <div *ngIf="form.submitted && !cliente.cuit" class="form-error">
+          CUIT requerido
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="razon_social" class="form-label">Razón Social</label>
+        <input
+          id="razon_social"
+          type="text"
+          [(ngModel)]="cliente.razon_social"
+          name="razon_social"
+          required
+          class="form-control" />
+        <div *ngIf="form.submitted && !cliente.razon_social" class="form-error">
+          Razón Social requerida
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/clientes" class="btn btn-secondary">
+          Cancelar
+        </a>
+
+        <button
+          type="submit"
+          [disabled]="form.invalid || cargando"
+          class="btn btn-primary">
+          Guardar
+        </button>
+      </div>
+
+    </form>
+
+    <div *ngIf="error" class="feedback-message feedback-error">
+      {{ error }}
+    </div>
+
+  </div>
+
+</div>

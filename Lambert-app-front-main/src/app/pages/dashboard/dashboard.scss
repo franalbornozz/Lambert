@@ -1,0 +1,56 @@
+/* ===== Dashboard ===== */
+
+$primary-green: #159947;
+
+.dashboard-title {
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: #262626;
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.dashboard-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.card-header-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header-custom h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #262626;
+}
+
+/* Botón outline corporativo */
+.btn-outline-custom {
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  height: 42px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $primary-green;
+    color: $primary-green;
+  }
+}

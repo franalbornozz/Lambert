@@ -1,0 +1,95 @@
+<div class="page-container container">
+  <div class="form-wrapper resultados">
+    <h1 class="page-title">Resultados y Verificaciones</h1>
+
+    <div *ngIf="cargando" class="feedback-message feedback-info">Calculando resultados...</div>
+    <div *ngIf="error" class="feedback-message feedback-error">{{ error }}</div>
+
+    <div *ngIf="!cargando && resultados">
+
+      <!-- 🧾 Resumen general -->
+      <section class="mb-4">
+        <h4>Resumen general</h4>
+        <p>
+          <strong>Camión:</strong>
+          {{ datosProyecto.camion.marca_camion }} {{ datosProyecto.camion.modelo_camion }} ({{ datosProyecto.camion.ano_camion }})<br>
+          <strong>Tipo:</strong> {{ datosProyecto.camion.tipo_camion }}<br>
+          <strong>Configuración:</strong>
+          Carrocería {{ datosProyecto.carroceria.tipo_carroceria }} de {{ datosProyecto.carroceria.largo_carroceria }} mm de largo
+        </p>
+      </section>
+
+      <!-- ⚙️ Resultados técnicos -->
+      <section class="mb-4">
+        <h4>Resultados técnicos</h4>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between">
+            <span>PBT máximo:</span> {{ resultados.resultado_peso_bruto_total_maximo | number }} kg
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Carga eje delantero:</span> {{ resultados.resultado_carga_eje_delantero_calculada | number }} kg
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Carga eje trasero:</span> {{ resultados.resultado_carga_eje_trasero_calculada | number }} kg
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Centro de carga total:</span> {{ resultados.resultado_centro_carga_total | number:'1.0-0' }} mm
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Centro de carga carrocería:</span> {{ resultados.resultado_centro_carga_carroceria | number:'1.0-0' }} mm
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Nueva distancia entre ejes:</span> {{ resultados.resultado_nueva_distancia_entre_ejes | number:'1.0-0' }} mm
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Desplazamiento del eje:</span> {{ resultados.resultado_desplazamiento_eje | number:'1.0-0' }} mm
+          </li>
+        </ul>
+      </section>
+
+      <!-- ✅ Verificaciones normativas -->
+      <section class="mb-4 verificacion-cards">
+        <div [ngClass]="resultados.verificacion_distribucion_carga_ok ? 'ok' : 'error'">
+          <h5>Distribución de carga</h5>
+          <p>{{ resultados.verificacion_distribucion_carga_ok ? 'Cumple norma' : 'Fuera de norma' }}</p>
+        </div>
+
+        <div [ngClass]="resultados.verificacion_voladizo_trasero_ok ? 'ok' : 'error'">
+          <h5>Voladizo trasero</h5>
+          <p>{{ resultados.verificacion_voladizo_trasero_ok ? 'Cumple norma' : 'Excedido' }}</p>
+        </div>
+      </section>
+
+      <!-- 💡 Recomendaciones -->
+      <section class="mb-4">
+        <h4>Recomendaciones</h4>
+        <ul class="list-group">
+          <li *ngFor="let rec of resultados.recomendaciones" class="list-group-item">
+            {{ rec }}
+          </li>
+        </ul>
+      </section>
+
+      <!-- 📊 Modificaciones requeridas-->
+      <section class="mb-4">
+        <button class="btn btn-secondary mb-3" (click)="alternarDetalles()">
+          {{ mostrarDetalles ? 'Ocultar modificaciones' : 'Ver modificaciones' }}
+        </button>
+
+        <div *ngIf="mostrarDetalles" class="border rounded p-3">
+          <p><strong>Desplazamiento del eje:</strong> {{ resultados.resultado_desplazamiento_eje | number:'1.0-0' }} mm</p>
+          <p><strong>Modificación de chasis:</strong> {{ resultados.resultado_modificacion_chasis }}</p>
+          <p><strong>Nuevo voladizo trasero:</strong> {{ resultados.resultado_voladizo_trasero_calculado | number:'1.0-0' }} mm</p>
+          <p><strong>Largo final:</strong> {{ resultados.resultado_largo_final_camion | number:'1.0-0' }} mm</p>
+        </div>
+      </section>
+
+      <!-- 🔘 Acciones -->
+      <div class="form-actions">
+        <button class="btn btn-secondary" (click)="volverAModificar()">Modificar datos</button>
+        <button class="btn btn-primary" (click)="guardarProyecto()">Guardar simulación</button>
+      </div>
+
+    </div>
+  </div>
+</div>

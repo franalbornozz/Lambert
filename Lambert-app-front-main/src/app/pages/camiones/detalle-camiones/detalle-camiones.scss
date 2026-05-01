@@ -1,0 +1,63 @@
+.resultados {
+  h3, h4 {
+    margin-bottom: 10px;
+  }
+
+  section {
+    margin: 20px 0;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: #fafafa;
+    border: 1px solid #e6e6e6;
+  }
+
+  .tabla div {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .verificacion-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    div {
+      flex: 1;
+      min-width: 220px;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .ok {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  }
+
+  .lista-recomendaciones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 6px 0;
+      line-height: 1.6;
+      padding-left: 16px;
+      text-indent: -8px;
+    }
+
+    .separator {
+      border-bottom: 1px dashed #ccc;
+      margin: 12px 0;
+    }
+  }
+}

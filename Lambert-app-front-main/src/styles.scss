@@ -1,0 +1,257 @@
+/* ============================= */
+/* ===== SISTEMA GLOBAL UI ===== */
+/* ============================= */
+@use "sass:color";
+
+$primary-green: #159947;
+$danger-red: #da251d;
+$dark-main: #262626;
+$dark-secondary: #333333;
+$light-bg: #f4f6f8;
+
+/* ===== Reset + Layout general ===== */
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: $light-bg;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+               'Open Sans', 'Helvetica Neue', sans-serif;
+  color: $dark-main;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+app-header {
+  flex-shrink: 0; // header fijo arriba
+}
+
+app-footer {
+  flex-shrink: 0; // footer fijo abajo
+}
+
+.app-content {
+  flex: 1; // ocupa todo el espacio entre header y footer
+  padding: 2rem 1rem;
+}
+
+/* ===== Header corporativo ===== */
+
+header.navbar {
+  background-color: $dark-main;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;  
+}
+
+.logo {
+  max-height: 40px;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+.navbar .nav-link {
+  color: #e6e6e6;
+  font-weight: 500;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $primary-green;
+  }
+}
+
+.navbar .btn-link {
+  color: #e6e6e6;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    color: $primary-green;
+    text-decoration: none;
+  }
+}
+
+.navbar-toggler {
+  border: none;
+  filter: invert(1);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* ===== Footer corporativo ===== */
+
+footer {
+  background-color: $dark-secondary;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: #e6e6e6;
+  text-align: center;
+  margin-top: auto;
+  width: 100%;
+}
+
+footer p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ===== Layout base ===== */
+
+.page-container {
+  padding: 2rem 0;
+}
+
+.page-title {
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: $dark-main;
+}
+
+/* ===== Botones ===== */
+
+.btn-secondary {
+  background-color: #e6e6e6;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+
+  &:hover {
+    background-color: color.adjust(#e6e6e6, $lightness: -5%);
+  }
+}
+
+.btn-danger {
+  background-color: $danger-red;
+  border: none;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: color.adjust($danger-red, $lightness: -8%);
+  }
+}
+
+.btn-primary {
+  background-color: $primary-green !important;
+  border-color: $primary-green !important;
+  color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:active:focus {
+  background-color: color.adjust($primary-green, $lightness: -8%) !important;
+  border-color: color.adjust($primary-green, $lightness: -8%) !important;
+  box-shadow: none !important;
+}
+
+/* ===== Formularios ===== */
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-control {
+  border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: $primary-green;
+  box-shadow: 0 0 0 3px rgba(21, 153, 71, 0.15);
+}
+
+.form-error {
+  font-size: 0.85rem;
+  margin-top: 6px;
+  color: $danger-red;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Cards ===== */
+
+.card {
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Listados ===== */
+
+.table thead {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* ===== Mensajes de feedback ===== */
+
+.feedback-message {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feedback-error {
+  color: $danger-red;
+}
+
+.feedback-success {
+  color: $primary-green;
+}
+
+.feedback-warning {
+  color: #f59e0b;
+}
+
+.feedback-info {
+  color: #6b7280;
+}

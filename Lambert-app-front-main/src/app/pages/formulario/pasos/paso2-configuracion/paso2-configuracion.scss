@@ -1,0 +1,44 @@
+.paso2-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.paso2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.paso2-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.paso2-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+fieldset {
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: #fafafa;
+}
+
+legend {
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 1rem;
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "architect",
+  "instructions": [
+    ".opencode/rules/global.md",
+    ".opencode/rules/core-standards.md"
+  ],
+  "agent": {
+    "architect": {
+      "mode": "primary",
+      "model": "opencode/claude-opus-4-5",
+      "temperature": 0.2,
+      "color": "#7c3aed",
+      "permission": {
+        "edit": "ask",
+        "bash": "ask",
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "developer": {
+      "mode": "subagent",
+      "model": "opencode/deepseek-v4-pro",
+      "temperature": 0.3,
+      "color": "#10b981",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "allow",
+        "skill": {
+          "*": "allow"
+        },
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "context": {
+      "mode": "subagent",
+      "model": "google/gemini-1.5-flash",
+      "temperature": 0.1,
+      "color": "#f59e0b",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "webfetch": "allow",
+        "websearch": "allow"
+      }
+    },
+    "guardian": {
+      "mode": "subagent",
+      "model": "opencode/minimax-m2.5",
+      "temperature": 0.1,
+      "color": "#ef4444",
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "deny",
+          "flake8 *": "allow",
+          "npm run lint*": "allow",
+          "npx eslint *": "allow",
+          "ruff check *": "allow"
+        }
+      }
+    }
+  }
+}

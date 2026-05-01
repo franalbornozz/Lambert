@@ -1,0 +1,34 @@
+<div class="page-container container" *ngIf="camion">
+  <div class="form-wrapper resultados">
+    <h1 class="page-title">
+      Detalle del Camión
+      {{ camion.marca_camion }} {{ camion.modelo_camion }}
+      <span *ngIf="!camion">#{{ camionId }}</span>
+    </h1>
+
+    <!-- Datos generales -->
+    <section>
+      <h4>Datos generales</h4>
+      <p>
+        <strong>Año:</strong> {{ camion.ano_camion }}<br>
+        <strong>Tipo:</strong> {{ camion.tipo_camion }}
+      </p>
+    </section>
+
+    <!-- Configuración -->
+    <section *ngIf="configuracion">
+      <h4>Configuración</h4>
+      <div class="tabla">
+        <div><span>Distancia entre ejes:</span> {{ configuracion.distancia_entre_ejes }} mm</div>
+        <div><span>Distancia primer eje espalda cabina:</span> {{ configuracion.distancia_primer_eje_espalda_cabina }} mm</div>
+        <div><span>Voladizo delantero:</span> {{ configuracion.voladizo_delantero }} mm</div>
+        <div><span>Voladizo trasero:</span> {{ configuracion.voladizo_trasero }} mm</div>
+        <div><span>Peso eje delantero:</span> {{ configuracion.peso_eje_delantero }} kg</div>
+        <div><span>Peso eje trasero:</span> {{ configuracion.peso_eje_trasero }} kg</div>
+        <div><span>PBT:</span> {{ configuracion.pbt }} kg</div>
+        <div><span>Ancho chasis 1:</span> {{ configuracion.ancho_chasis_1 }} mm</div>
+        <div><span>Ancho chasis 2:</span> {{ configuracion.ancho_chasis_2 }} mm</div>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="page-container container">
+
+  <div class="form-wrapper">
+
+    <h1 class="page-title text-center">Nuevo Usuario</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+      <!-- Rol -->
+      <div class="form-group">
+        <label for="rol" class="form-label">Rol</label>
+        <select formControlName="rol" class="form-select" id="rol">
+          <option value="" disabled>Seleccione un rol</option>
+          <option value="admin">Administrador</option>
+          <option value="vendedor">Vendedor</option>
+          <option value="ofi_tec">Oficina Técnica</option>
+        </select>
+
+        @if (rol?.invalid && (rol?.dirty || rol?.touched)) {
+          <div class="form-error">
+            @if (rol?.hasError('required')) {
+              Seleccione un rol.
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          id="email"
+        />
+
+        @if (email?.invalid && (email?.dirty || email?.touched)) {
+          <div class="form-error">
+            @if (email?.hasError('required')) {
+              El email es obligatorio.
+            }
+            @if (email?.hasError('email')) {
+              Ingrese un email válido.
+            }
+          </div>
+        }
+      </div>
+
+      <!-- DNI -->
+      <div class="form-group">
+        <label for="dni" class="form-label">DNI</label>
+        <input
+          formControlName="dni"
+          type="text"
+          class="form-control"
+          id="dni"
+        />
+
+        @if (id?.invalid && (id?.dirty || id?.touched)) {
+          <div class="form-error">
+            @if (id?.hasError('required')) {
+              El DNI es obligatorio.
+            }
+            @if (id?.hasError('pattern')) {
+              Solo números.
+            }
+            @if (id?.hasError('minlength') || id?.hasError('maxlength')) {
+              Debe tener entre 7 y 8 dígitos.
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label for="nombre" class="form-label">Nombre Completo</label>
+        <input
+          formControlName="nombre"
+          type="text"
+          class="form-control"
+          id="nombre"
+        />
+
+        @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
+          <div class="form-error">
+            El nombre es obligatorio.
+          </div>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          id="password"
+        />
+
+        @if (password?.invalid && (password?.dirty || password?.touched)) {
+          <div class="form-error">
+            @if (password?.hasError('required')) {
+              La contraseña es obligatoria.
+            }
+            @if (password?.hasError('minlength')) {
+              Mínimo 6 caracteres.
+            }
+            @if (password?.hasError('pattern')) {
+              Debe incluir mayúscula, minúscula, número y símbolo.
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/usuarios" class="btn btn-secondary">
+          Cancelar
+        </a>
+
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || cargando">
+          Guardar
+        </button>
+      </div>
+
+    </form>
+
+    <div *ngIf="error" class="feedback-message feedback-error">
+      {{ error }}
+    </div>
+
+  </div>
+
+</div>

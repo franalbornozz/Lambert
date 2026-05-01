@@ -1,0 +1,155 @@
+<div class="page-container container">
+  <div class="form-wrapper">
+    <h1 class="page-title">Configuración del camión</h1>
+    
+    <form>
+
+      <!-- CONFIGURACIÓN GENERAL -->
+      <fieldset class="mb-4">
+        <legend>Configuración General</legend>
+
+        <div class="paso2-grid">
+          <div>
+            <label class="form-label">Distancia entre ejes (mm):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.distancia_entre_ejes"
+                  name="distancia_ejes" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Distancia primer eje a espalda cabina (mm):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.distancia_primer_eje_espalda_cabina"
+                  name="distancia_cabina" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Voladizo delantero (mm):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.voladizo_delantero"
+                  name="voladizo_delantero" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Voladizo trasero (mm):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.voladizo_trasero"
+                  name="voladizo_trasero" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Peso eje delantero (kg):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.peso_eje_delantero"
+                  name="peso_delantero" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Peso eje trasero (kg):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.peso_eje_trasero"
+                  name="peso_trasero" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Ancho de chasis 1 (mm):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.ancho_chasis_1"
+                  name="ancho_chasis_1" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Ancho de chasis 2 (mm): <small>-vacío si es recto-</small></label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.ancho_chasis_2"
+                  name="ancho_chasis_2" [readonly]="modoLectura">
+          </div>
+
+          <div>
+            <label class="form-label">Peso bruto total (kg):</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="configuracion.pbt"
+                  name="pbt" [readonly]="modoLectura">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- CARROCERÍA -->
+      <fieldset class="mb-4">
+        <legend>Carrocería</legend>
+
+        <div class="paso2-grid-3">
+          <div>
+            <label class="form-label">Tipo:</label>
+            <select class="form-select" [(ngModel)]="carroceria.tipo_carroceria" name="tipo_carroceria">
+              <option value="">Seleccionar</option>
+              <option value="Metálica">Metálica</option>
+              <option value="Térmica">Térmica</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label">Largo (mm):</label>
+            <input type="number" class="form-control" [(ngModel)]="carroceria.largo_carroceria" name="largo">
+          </div>
+
+          <div>
+            <label class="form-label">Alto (mm):</label>
+            <input type="number" class="form-control" [(ngModel)]="carroceria.alto_carroceria" name="alto">
+          </div>
+
+          <div>
+            <label class="form-label">Ancho (mm):</label>
+            <input type="number" class="form-control" [(ngModel)]="carroceria.ancho_carroceria" name="ancho">
+          </div>
+
+          <div>
+            <label class="form-label">Separación cabina-carrocería (mm):</label>
+            <input type="number" class="form-control" [(ngModel)]="carroceria.separacion_cabina_carroceria" name="separacion">
+          </div>
+
+          <div>
+            <label class="form-label">Equipo de frío (opcional):</label>
+            <input type="text" class="form-control" [(ngModel)]="carroceria.equipo_frio_marca_modelo" name="equipo_frio">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- CARGAS EXTRA -->
+      <fieldset class="mb-4">
+        <legend>Cargas Extra</legend>
+        <div class="paso2-grid-4 mb-3">
+          <div>
+            <input type="text" class="form-control" placeholder="Descripción" [(ngModel)]="nuevaCarga.descripcion" name="desc">
+          </div>
+          <div>
+            <input type="number" class="form-control" placeholder="Peso (kg)" [(ngModel)]="nuevaCarga.peso" name="peso">
+          </div>
+          <div>
+            <input type="number" class="form-control" placeholder="Distancia eje delantero (mm)" [(ngModel)]="nuevaCarga.distancia_eje_delantero" name="distancia">
+          </div>
+          <div>
+            <button type="button" class="btn btn-secondary" (click)="agregarCarga()">Agregar</button>
+          </div>
+        </div>
+
+        <ul class="list-group">
+          <li *ngFor="let c of cargas_extra; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ c.descripcion }} - {{ c.peso }} kg a {{ c.distancia_eje_delantero }} mm
+            <button type="button" class="btn btn-sm btn-danger" (click)="eliminarCarga(i)">Eliminar</button>
+          </li>
+        </ul>
+      </fieldset>
+
+      <!-- BOTONES -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="volver()">Volver</button>
+        <button type="button" class="btn btn-primary" (click)="continuar()">Siguiente</button>
+      </div>
+    </form>
+
+    <div *ngIf="errorValidacion" class="feedback-message feedback-warning mt-3">
+      {{ errorValidacion }}
+    </div>
+  </div>
+</div>

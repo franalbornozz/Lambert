@@ -1,0 +1,91 @@
+<div class="page-container container" *ngIf="pedido">
+  <div class="form-wrapper resultados">
+    <h1 class="page-title">Detalle del Pedido #{{ pedido.id }}</h1>
+
+    <!-- Cliente -->
+    <section>
+      <h4>Cliente</h4>
+      <p>
+        <strong>CUIT:</strong> {{ pedido.cuit }}<br>
+        <strong>Razón social:</strong> {{ pedido.cliente_razon_social }}
+      </p>
+    </section>
+
+    <!-- Camión -->
+    <section>
+      <h4>Camión</h4>
+      <p>
+        <strong>Marca:</strong> {{ pedido.camion.marca_camion }}<br>
+        <strong>Modelo:</strong> {{ pedido.camion.modelo_camion }}<br>
+        <strong>Año:</strong> {{ pedido.camion.ano_camion }}<br>
+        <strong>Tipo:</strong> {{ pedido.camion.tipo_camion }}
+      </p>
+    </section>
+
+    <!-- Configuración -->
+    <section>
+      <h4>Configuración</h4>
+      <div class="tabla">
+        <div><span>Distancia entre ejes:</span> {{ pedido.configuracion.distancia_entre_ejes }} mm</div>
+        <div><span>Distancia primer eje a espalda cabina:</span> {{ pedido.configuracion.distancia_primer_eje_espalda_cabina }} mm</div>
+        <div><span>Voladizo delantero:</span> {{ pedido.configuracion.voladizo_delantero }} mm</div>
+        <div><span>Voladizo trasero:</span> {{ pedido.configuracion.voladizo_trasero }} mm</div>
+        <div><span>Peso eje delantero:</span> {{ pedido.configuracion.peso_eje_delantero }} kg</div>
+        <div><span>Peso eje trasero:</span> {{ pedido.configuracion.peso_eje_trasero }} kg</div>
+        <div><span>Ancho chasis 1:</span> {{ pedido.configuracion.ancho_chasis_1 }} mm</div>
+        <div><span>Ancho chasis 2:</span> {{ pedido.configuracion.ancho_chasis_2 }} mm</div>
+        <div><span>PBT:</span> {{ pedido.configuracion.pbt }} kg</div>
+      </div>
+    </section>
+
+    <!-- Carrocería -->
+    <section>
+      <h4>Carrocería</h4>
+      <div class="tabla">
+        <div><span>Tipo:</span> {{ pedido.carroceria.tipo_carroceria }}</div>
+        <div><span>Largo:</span> {{ pedido.carroceria.largo_carroceria }} mm</div>
+        <div><span>Alto:</span> {{ pedido.carroceria.alto_carroceria }} mm</div>
+        <div><span>Ancho:</span> {{ pedido.carroceria.ancho_carroceria }} mm</div>
+        <div><span>Separación cabina-carrocería:</span> {{ pedido.carroceria.separacion_cabina_carroceria }} mm</div>
+        <div><span>Equipo de frío:</span> {{ pedido.carroceria.equipo_frio_marca_modelo }}</div>
+      </div>
+    </section>
+
+    <!-- Resultados técnicos -->
+    <section>
+      <h4>Resultados técnicos</h4>
+      <div class="tabla">
+        <div><span>PBT máximo:</span> {{ pedido.resultado_peso_bruto_total_maximo }} kg</div>
+        <div><span>Carga eje delantero:</span> {{ pedido.resultado_carga_eje_delantero_calculada }} kg</div>
+        <div><span>Carga eje trasero:</span> {{ pedido.resultado_carga_eje_trasero_calculada }} kg</div>
+        <div><span>Centro de carga total:</span> {{ pedido.resultado_centro_carga_total }} mm</div>
+        <div><span>Centro de carga carrocería:</span> {{ pedido.resultado_centro_carga_carroceria }} mm</div>
+        <div><span>Nueva distancia entre ejes:</span> {{ pedido.resultado_nueva_distancia_entre_ejes }} mm</div>
+        <div><span>Desplazamiento del eje:</span> {{ pedido.resultado_desplazamiento_eje }} mm</div>
+        <div><span>Modificación de chasis:</span> {{ pedido.resultado_modificacion_chasis }}</div>
+        <div><span>Voladizo trasero calculado:</span> {{ pedido.resultado_voladizo_trasero_calculado }} mm</div>
+        <div><span>Largo final:</span> {{ pedido.resultado_largo_final_camion }} mm</div>
+      </div>
+    </section>
+
+    <!-- Verificaciones -->
+    <section class="verificacion-cards">
+      <div [ngClass]="pedido.verificacion_distribucion_carga_ok ? 'ok' : 'error'">
+        <h5>Distribución de carga</h5>
+        <p>{{ pedido.verificacion_distribucion_carga_ok ? 'Cumple norma' : 'Fuera de norma' }}</p>
+      </div>
+      <div [ngClass]="pedido.verificacion_voladizo_trasero_ok ? 'ok' : 'error'">
+        <h5>Voladizo trasero</h5>
+        <p>{{ pedido.verificacion_voladizo_trasero_ok ? 'Cumple norma' : 'Excedido' }}</p>
+      </div>
+    </section>
+
+    <!-- Recomendaciones -->
+    <section *ngIf="pedido.recomendaciones && pedido.recomendaciones.length">
+      <h4>Recomendaciones</h4>
+      <ul class="lista-recomendaciones">
+        <li *ngFor="let rec of pedido.recomendaciones">{{ rec }}</li>
+      </ul>
+    </section>
+  </div>
+</div>

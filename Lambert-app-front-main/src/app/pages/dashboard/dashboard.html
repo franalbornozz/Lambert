@@ -1,0 +1,62 @@
+<div class="dashboard-container container">
+  <h1 class="dashboard-title">Inicio</h1>
+
+  <div class="dashboard-grid">
+
+    <!-- Pedidos -->
+    <div class="dashboard-card">
+      <div class="card-header-custom">
+        <h3>Pedidos</h3>
+        <button class="btn btn-sm btn-primary" routerLink="/formulario">
+          Nuevo
+        </button>
+      </div>
+      <button class="btn btn-outline-custom w-100" routerLink="/mis-pedidos">
+        Ver pedidos
+      </button>
+    </div>
+
+    <!-- Clientes -->
+    <div class="dashboard-card">
+      <div class="card-header-custom">
+        <h3>Clientes</h3>
+        <button class="btn btn-sm btn-primary" routerLink="/clientes/alta">
+          Nuevo
+        </button>
+      </div>
+      <button class="btn btn-outline-custom w-100" routerLink="/clientes">
+        Ver clientes
+      </button>
+    </div>
+
+    <!-- Usuarios (solo admin) -->
+    <div class="dashboard-card" *ngIf="currentUser?.rol === 'admin'">
+      <div class="card-header-custom">
+        <h3>Usuarios</h3>
+        <button class="btn btn-sm btn-primary" routerLink="/registrar-cuenta">
+          Nuevo
+        </button>
+      </div>
+      <button class="btn btn-outline-custom w-100" routerLink="/usuarios">
+        Ver usuarios
+      </button>
+    </div>
+
+    <!-- Camiones -->
+    <div class="dashboard-card">
+      <div class="card-header-custom">
+        <h3>Camiones</h3>
+        <button 
+          *ngIf="currentUser?.rol === 'admin'" 
+          class="btn btn-sm btn-primary" 
+          routerLink="/camiones/alta">
+          Nuevo
+        </button>
+      </div>
+      <button class="btn btn-outline-custom w-100" routerLink="/camiones">
+        Ver camiones
+      </button>
+    </div>
+
+  </div>
+</div>
