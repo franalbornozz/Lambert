@@ -42,6 +42,9 @@ app.use('/api/usuarios', usersRoutes);
 app.use('/api/clientes', clientesRoutes);
 
 // Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// En producción (Railway) escuchar en 0.0.0.0, en desarrollo en localhost
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
 });
