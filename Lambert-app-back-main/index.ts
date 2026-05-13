@@ -13,8 +13,23 @@ import clientesRoutes from './src/routes/clientes.routes';
 
 const app = express();
 
+// Parsear múltiples orígenes CORS si están separados por coma
+const allowedOrigins = CORS_ORIGIN.split(',').map((origin) => origin.trim());
+
 // Middlewares globales
-app.use(cors({ origin: true, credentials: true }));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Permitir requests sin origin (mobile apps, Postman, etc.)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('Origen no permitido por CORS'));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -26,23 +41,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/usuarios', usersRoutes);
 app.use('/api/clientes', clientesRoutes);
 
-// Health check
-app.get('/api/health', async (_req, res) => {
-  try {
-    const { pool } = await import('./db');
-    const result = await pool.query('SELECT COUNT(*) FROM users');
-    res.json({ status: 'ok', users: result.rows[0].count });
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    res.status(500).json({ status: 'error', message });
-  }
+// Iniciar el servidor
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-// Solo iniciar servidor en entornos tradicionales (NO en Vercel)
-if (!process.env.VERCEL && !process.env.NODE_ENV?.includes('production')) {
-  app.listen(PORT, 'localhost', () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-  });
-}
-
-export default app;

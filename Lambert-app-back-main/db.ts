@@ -1,4 +1,4 @@
-// db.ts - Conexión a PostgreSQL
+// db.ts - Conexión a PostgreSQL con configuración centralizada
 import pkg from 'pg';
 import { DB_USER, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT } from './config';
 
@@ -10,6 +10,4 @@ export const pool = new Pool({
   database: DB_NAME,
   password: DB_PASSWORD,
   port: DB_PORT,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-  connectionTimeoutMillis: 10000,
 });
