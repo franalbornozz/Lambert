@@ -41,10 +41,12 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/usuarios', usersRoutes);
 app.use('/api/clientes', clientesRoutes);
 
-// Iniciar el servidor
-// En producción (Railway) escuchar en 0.0.0.0, en desarrollo en localhost
-const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+// Iniciar el servidor (solo en entornos tradicionales, no en Vercel serverless)
+if (!process.env.VERCEL) {
+  const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+  app.listen(PORT, HOST, () => {
+    console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
+  });
+}
 
-app.listen(PORT, HOST, () => {
-  console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
-});
+export default app;
