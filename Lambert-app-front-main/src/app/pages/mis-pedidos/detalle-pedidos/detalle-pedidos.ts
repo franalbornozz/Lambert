@@ -204,7 +204,7 @@ export class PedidoDetalleComponent implements OnInit {
   confirmarEliminar(): void {
     if (!this.pedido) return;
     if (confirm('¿Eliminar este pedido? Esta acción no se puede deshacer.')) {
-      this.http.delete(`http://localhost:3000/api/admin/pedidos/${this.pedido.id}`, {
+      this.http.delete(`https://lambert-production.up.railway.app/api/admin/pedidos/${this.pedido.id}`, {
         body: { es_modificado: this.pedido.es_modificado },
         withCredentials: true
       }).subscribe({
@@ -236,7 +236,7 @@ export class PedidoDetalleComponent implements OnInit {
   actualizarEstado(): void {
     if (!this.pedido) return;
     this.http.put(
-      `http://localhost:3000/api/admin/pedidos/${this.pedido.id}`,
+      `https://lambert-production.up.railway.app/api/admin/pedidos/${this.pedido.id}`,
       { estado: this.estadoEditable, es_modificado: this.pedido.es_modificado },
       { withCredentials: true }
     ).subscribe({
@@ -248,7 +248,7 @@ export class PedidoDetalleComponent implements OnInit {
   actualizarFechaEntrega(): void {
     if (!this.pedido) return;
     this.http.put(
-      `http://localhost:3000/api/admin/pedidos/${this.pedido.id}`,
+      `https://lambert-production.up.railway.app/api/admin/pedidos/${this.pedido.id}`,
       { fecha_entrega: this.fechaEntregaEditable, es_modificado: this.pedido.es_modificado },
       { withCredentials: true }
     ).subscribe({

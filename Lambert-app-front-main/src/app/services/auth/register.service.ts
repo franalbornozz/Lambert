@@ -14,7 +14,7 @@ export interface RegisterRequest {
   providedIn: 'root',
 })
 export class RegisterService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://lambert-production.up.railway.app';
   private registerStatus = new BehaviorSubject<boolean>(false);
 
   currentUserRegisterService = this.registerStatus.asObservable();

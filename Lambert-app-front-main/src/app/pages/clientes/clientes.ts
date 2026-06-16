@@ -77,7 +77,7 @@ export class ClientesComponent implements OnInit {
 
   confirmarEliminar(cuit: number): void {
     if (confirm('¿Eliminar este cliente? Esta acción no se puede deshacer.')) {
-      this.http.delete(`http://localhost:3000/api/clientes/${cuit}`, {
+      this.http.delete(`https://lambert-production.up.railway.app/api/clientes/${cuit}`, {
         withCredentials: true
       }).subscribe({
         next: () => {

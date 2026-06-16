@@ -22,7 +22,7 @@ export interface LoginRequest {
 export class LoginService {
   currentUserLogInService = new BehaviorSubject<boolean>(false);
 
-  private apiUrl = 'http://localhost:3000/api'; // URL del backend
+  private apiUrl = 'https://lambert-production.up.railway.app/api'; // URL del backend
 
   constructor(private http: HttpClient) {}
 

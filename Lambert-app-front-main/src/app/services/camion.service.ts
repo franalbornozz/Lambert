@@ -34,7 +34,7 @@ export interface CamionCompleto extends Omit<CamionListado, 'id' | 'estado_verif
 })
 
 export class CamionService {
-  private apiUrl = 'http://localhost:3000/api/camiones'; // backend local
+  private apiUrl = 'https://lambert-production.up.railway.app/api/camiones'; // backend local
   constructor(private http: HttpClient) {}
 
   getCamiones(): Observable<CamionListado[]> {

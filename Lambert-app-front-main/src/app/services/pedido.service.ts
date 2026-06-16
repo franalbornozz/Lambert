@@ -8,7 +8,7 @@ import { Cliente, PedidoDto, PedidoListado, PedidoResponse, PedidoDetalle } from
   providedIn: 'root'
 })
 export class PedidoService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://lambert-production.up.railway.app/api';
 
   constructor(private http: HttpClient) {}
 

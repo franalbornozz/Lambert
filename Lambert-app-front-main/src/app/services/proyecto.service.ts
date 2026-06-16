@@ -12,7 +12,7 @@ import {
   providedIn: 'root'
 })
 export class ProyectoService {
-  private apiUrl = 'http://localhost:3000/api/proyectos'; // Ajustá si usás proxy
+  private apiUrl = 'https://lambert-production.up.railway.app/api/proyectos'; // Ajustá si usás proxy
 
   constructor(private http: HttpClient) {}
 

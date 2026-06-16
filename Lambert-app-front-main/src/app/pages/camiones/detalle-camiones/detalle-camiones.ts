@@ -60,7 +60,7 @@ export class CamionDetalleComponent implements OnInit {
   confirmarEliminar(): void {
     if (!this.camionId) return;
     if (confirm('¿Eliminar este camión? Esta acción no se puede deshacer.')) {
-      this.http.delete(`http://localhost:3000/api/camiones/${this.camionId}`, {
+      this.http.delete(`https://lambert-production.up.railway.app/api/camiones/${this.camionId}`, {
         withCredentials: true
       }).subscribe({
         next: () => {
