@@ -20,7 +20,7 @@ export const getCamionesVerificados = async (req: Request, res: Response) => {
 // Controlador para GET /api/camiones/:id
 export const getCamionPorId = async (req: Request, res: Response) => {
   try {
-    const camionId = parseInt(req.params.id, 10);
+    const camionId = parseInt(req.params.id as string, 10);
     if (isNaN(camionId)) {
       return res.status(400).json({ error: 'ID de camión inválido.' });
     }
@@ -57,7 +57,7 @@ export const crearCamion = async (req: Request, res: Response) => {
 // Controlador para GET /api/camiones/configuracion/:id
 export const getConfiguracionPorCamionId = async (req: Request, res: Response) => {
   try {
-    const camionId = parseInt(req.params.id, 10);
+    const camionId = parseInt(req.params.id as string, 10);
     if (isNaN(camionId)) {
       return res.status(400).json({ error: 'ID de camión inválido.' });
     }
