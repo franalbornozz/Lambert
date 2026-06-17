@@ -1,5 +1,5 @@
 {
-  "install": {
-    "cmd": "npm install"
-  }
+  "builder": "node",
+  "buildCommand": "npm install && npm run build",
+  "startCommand": "npm start"
 }
